@@ -6,8 +6,8 @@ const startGame = () =>  {
     ['-', '-', '-'],
     ['-', '-', '-']
   ];
-  
   window.turn = 'X';
+  window.turnCount = 0;
   
   setEventListeners(); 
 }
@@ -27,6 +27,18 @@ const boxClicked = (event) => {
   // Check if the box clicked is not the default value and return early if it is
   if(window.grid[boxCoordinates.x] [boxCoordinates.y] !== '-') {
     return;
+  }
+
+  // increment turn counter and check for draw
+  window.turnCount++;
+  if(window.turnCount === 9) {
+    console.log('DRAW');
+    document.getElementById('winner-alert-value').innerHTML = 'No one! - It\'s a draw!';
+    document.getElementsByClassName('winner-alert')[0].classList.toggle('hidden');
+
+    setTimeout(() => {
+      location.reload(false);
+    }, 2000);
   }
   
   // change color of box
